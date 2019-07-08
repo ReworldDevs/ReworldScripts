@@ -19,7 +19,7 @@ obj.CollisionEnter:Connect(function(hit)
 	end
 end)
 
---todetect collision with all objects simply remove the if statement
+--to detect collision with all objects simply remove the if statement
 obj.CollisionEnter:Connect(function(hit)
 	print("collision detected") --this version simply prints in the console
 end)
