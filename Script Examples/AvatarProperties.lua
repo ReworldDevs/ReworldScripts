@@ -10,3 +10,4 @@ local avatar = WorkSpace:GetChildByClassName("Avatar") --get the Avatar, a child
 avatar.MoveSpeed = 0
 avatar.JumpSpeed = 0
 avatar.Health = 0
+avatar.Position = Vector3.New(10,10,10)
