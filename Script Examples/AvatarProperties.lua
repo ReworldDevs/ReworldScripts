@@ -1,3 +1,6 @@
+--LuaScript template for accessing avatar properties
+--location: ServerLogic
+
 wait(1) --wait for the avatar to be loaded in game
 
 local avatar = WorkSpace:GetChildByClassName("Avatar") --get the Avatar, a child of WorkSpace 
