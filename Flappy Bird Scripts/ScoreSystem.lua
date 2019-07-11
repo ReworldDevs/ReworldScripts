@@ -50,8 +50,7 @@ MessageEvent.ServerEventCallBack("end"):Connect(endFunct)
 MessageEvent.ServerEventCallBack("addOne"):Connect(updateScore)
 
 --fires "addOne" server event for each wall passed
-while true do
-	wait(0.1)
+function scoreRun()
 	if go then
 		if walls[c].Position.x <-1.5 then
 			score=score+1
@@ -61,3 +60,5 @@ while true do
 		if c>#walls then c=1 end
 	end
 end
+
+UpdateEvent.Update:Connect(scoreRun)

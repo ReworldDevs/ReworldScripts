@@ -31,11 +31,12 @@ MessageEvent.ServerEventCallBack("start"):Connect(start)
 MessageEvent.ServerEventCallBack("end"):Connect(endFunct)
 
 --cycles walls while game is running to simulate infinite scroll
-while true do
-	wait(0.1)
+function wallsRun()
 	if walls[c].Position.x < -15 then
-		walls[c].Position = Vector3.New((walls[c].Position.x)+(#walls*3.5),math.random(bot,top),z) --cycles wall while setting randomized height
-		c=c+1 
+		walls[c].Position = Vector3.New((walls[c].Position.x)+(#walls*3.5),math.random(bot,top),z)
+		c=c+1
 	end
 	if c>#walls then c=1 end
 end
+
+UpdateEvent.Update:Connect(wallsRun)
