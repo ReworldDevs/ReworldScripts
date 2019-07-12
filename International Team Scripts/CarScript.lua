@@ -1,4 +1,6 @@
+--creates CarControl table for holding scripts (could be a cleaner way to organize scripts)
 local CarControl = {}
+--GameRun.Update() does the same thing, unsure why the devs created an UpdateEvent to run Update()
 local UpdateEvent = script.Parent.刷新
 local CarSpeed = 0
 local CarSpeedDown    = 0
@@ -12,8 +14,9 @@ local UpEvent = script.Parent.抬起漂移
 local FinishEvent = WorkSpace.地图.终点.完成
 local carRotationY = 0
 local carRotationYSpeed = 90 * 3.5
-
 local blnDown = false
+
+--Main function
 function CarControl.Init()
 	script.Parent.Velocity = Vector3(0, 0, 0)
 	UpdateEvent.Update:Connect(CarControl.Update)
