@@ -7,7 +7,6 @@ local minheight = -1
 local x = 5 --initial wall Position.x
 local z = walls[1].Position.z --wall Position.z
 local c = 1 --counter var for walls table
-local UpdateEvent = ServerLogic.UE
 
 --response function for "start" server event
 --randomly sets a wall height between minheight and maxheight for each wall
@@ -40,4 +39,4 @@ function wallsRun()
 	if c>#walls then c=1 end
 end
 
-UpdateEvent.Update:Connect(wallsRun)
+GameRun.Update:Connect(wallsRun)

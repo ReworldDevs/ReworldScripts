@@ -1,6 +1,3 @@
---照相机控制类，主要处理与照相机相关逻辑
-
---是否开启照相机相关打印信息
 local openCameraControlDebug = false
 local TOUCH_ROTATION_HORIZONTAL_SPEED = 23;
 local TOUCH_ROTATION_VERTICALLY_SPEED = 7;
@@ -9,6 +6,7 @@ local SightsLeftRightParam = 100;
 local SightsUpDownParam = 100; 
 local ManualMarkTime = 0;
 
+--set variables 
 local YawOffect = 0
 local PitchOffect = 0
 local AvatarRotationY = 0
@@ -18,6 +16,7 @@ CameraControl.binAvatarHideParts = false
 CameraControl.AvatarFirstInit = false
 CameraControl.AvatarInit = false
 
+--function RotationValue takes in a rotation degree x and simplifies it so that 0 <= x <= |180|
 local function RotationValue(value)
     if value > 180 then
         value = math.fmod(value,360)
@@ -33,6 +32,7 @@ local function RotationValue(value)
     end
     return value
 end
+
 
 function CameraControl.Main()
     Players:GetLocalPlayer().CharacterAdded:Connect(CameraControl.OnCharacterAdded)
@@ -75,7 +75,10 @@ function CameraControl.Main()
 
 		end
 
+        --additional checks if player is spawned
 		if player and player.Avatar and player.Avatar:GetState() == Enum.AvatarActionStatus.DriverSeat and WorkSpace.CurCamera.Subject then
+        --*********************************************************************************************************************************
+        --*********************************************************************************************************************************
 			if Time.time - ManualMarkTime > AUTODRIVEROTATIONTIME then
 				local lerpRotation =  Quaternion.Slerp(Quaternion.Euler(WorkSpace.CurCamera.Rotation.x, 
 				WorkSpace.CurCamera.Rotation.y, 
@@ -84,6 +87,7 @@ function CameraControl.Main()
 				WorkSpace.CurCamera.Subject.Rotation.y,
 				WorkSpace.CurCamera.Subject.Rotation.z)
 				, delayTime * 6);
+                --keeps camera rotation stable while Avatar rotates
 				dump(math.abs(RotationValue(AvatarRotationY - player.Avatar.Rotation.y)))
 				if math.abs(RotationValue(AvatarRotationY - player.Avatar.Rotation.y)) < 0.5 then
 					WorkSpace.CurCamera.Yaw = lerpRotation:ToEulerAngles().y;
@@ -123,7 +127,6 @@ function CameraControl.SetSightsUpDownParam(param)
     SightsUpDownParam = param; 
 end
 
---当人物模型加载完成
 function CameraControl.OnCharacterAdded(avatar)
 	GameUI["摇杆控件"].IsVisable = true
     GameUI["跳跃"].IsVisable = true
@@ -131,7 +134,6 @@ function CameraControl.OnCharacterAdded(avatar)
     local handleType = player.ControlType
     local camera = nil
     
-    --将相应照相机的属性赋值给当前摄像机
     if handleType == HandleMode.TheThreePerson then
         camera = StarterPlayers["第三人称摄像机"]
     elseif handleType == HandleMode.TheFirstPerson then
@@ -143,16 +145,16 @@ function CameraControl.OnCharacterAdded(avatar)
     end
 
     CameraControl.onCharacterAddedResetCamera(camera, avatar)
-	HandleControl.ProcessGestureDrag(Vector3.zero)
+	HandleControl.ProcessGestureDrag(Vector3.zero) --tested this in English engine (does nothing)
 end
---当人物模型加载完成重置摄像机参数
+
 function CameraControl.onCharacterAddedResetCamera(camera, Character)
     
 	local player = Players:GetLocalPlayer()
 	if  player.Avatar ~= Character then
 		return
 	end
-    --初始化变量
+
     CameraControl.binAvatarHideParts = false
 
     if openCameraControlDebug then
@@ -182,7 +184,7 @@ function CameraControl.onCharacterAddedResetCamera(camera, Character)
 
     curCamera.Offset = camera.Offset
     
-    --将照相机的目标设置为角色
+
     curCamera.Subject = Character
     if openCameraControlDebug then
         print("camera.camera.Rotation.x:" .. curCamera.Rotation.x)
@@ -190,7 +192,7 @@ function CameraControl.onCharacterAddedResetCamera(camera, Character)
         print("camera.camera.Rotation.z:" .. curCamera.Rotation.z)
     end
 
-    --隐藏身体部位
+
     if curCamera.Distance <= 0.5 then
         CameraControl.binAvatarHideParts = true
     else
@@ -218,6 +220,7 @@ function CameraControl.ProcessTurn(x, y)
     x = x * (SightsLeftRightParam / 100);
     y = y * (SightsUpDownParam / 100);
 
+    --this edit removes ability to drag camera
 	YawOffect = TOUCH_ROTATION_HORIZONTAL_SPEED * x 
 	PitchOffect = TOUCH_ROTATION_VERTICALLY_SPEED * y 
 

@@ -6,7 +6,6 @@ local go = false
 local walls = WorkSpace.Walls:GetAllChild()
 local scoreList = {} --keeps track of scores, used to display high score
 local c = 1 --counter var for walls table
-local UpdateEvent = ServerLogic.UE
 
 --response function for "start" server event
 --displays Counter UiPanel
@@ -62,4 +61,4 @@ function scoreRun()
 	end
 end
 
-UpdateEvent.Update:Connect(scoreRun)
+GameRun.Update:Connect(scoreRun)
