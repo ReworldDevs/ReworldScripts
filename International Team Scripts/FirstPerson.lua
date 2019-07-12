@@ -1,3 +1,5 @@
+--appears to be unchanged from default First Person script
+
 local player = Players:GetLocalPlayer()
 if player == nil then
 	Players.PlayerAdded:Connect(function(playerId)

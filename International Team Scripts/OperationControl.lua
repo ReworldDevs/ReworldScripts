@@ -1,7 +1,6 @@
---操作控制类，主要处理相关操作对人物或者照相机进行修改
+
 HandleControl = {}
 
---用来处理按住跳跃按钮连续跳跃
 HandleControl.JumpEnable = false  
 HandleControl.LastInput = Vector3.zero
 function HandleControl.ProcessGestureDrag(touch)
