@@ -9,6 +9,7 @@ local startPos = flappy.Position
 --response function to "start" server event
 --unanchors flappy bird object
 function start(Uid)
+	velY = 7
 	flappy.Anchored = false
 end
 MessageEvent.ServerEventCallBack("start"):Connect(start)

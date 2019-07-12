@@ -7,6 +7,7 @@ local minheight = -1
 local x = 5 --initial wall Position.x
 local z = walls[1].Position.z --wall Position.z
 local c = 1 --counter var for walls table
+local UpdateEvent = ServerLogic.UE
 
 --response function for "start" server event
 --randomly sets a wall height between minheight and maxheight for each wall
@@ -33,7 +34,7 @@ MessageEvent.ServerEventCallBack("end"):Connect(endFunct)
 --cycles walls while game is running to simulate infinite scroll
 function wallsRun()
 	if walls[c].Position.x < -15 then
-		walls[c].Position = Vector3.New((walls[c].Position.x)+(#walls*3.5),math.random(bot,top),z)
+		walls[c].Position = Vector3.New((walls[c].Position.x)+(#walls*3.5),math.random(minheight,maxheight),z)
 		c=c+1
 	end
 	if c>#walls then c=1 end

@@ -1,8 +1,12 @@
+--Score track and display system script
+--location: ServerLogic
+
 local score = 0
 local go = false
 local walls = WorkSpace.Walls:GetAllChild()
 local scoreList = {} --keeps track of scores, used to display high score
 local c = 1 --counter var for walls table
+local UpdateEvent = ServerLogic.UE
 
 --response function for "start" server event
 --displays Counter UiPanel
@@ -19,9 +23,6 @@ end
 --hides Counter UiPanel
 --sorts updates and sorts scoreList
 --updates score and high score UiText
---Score track and display system script
---location: ServerLogic
-
 --displays Endgame UiPanel
 function endFunct(Uid)
 	local player = Players:GetPlayerByUserId(Uid)
