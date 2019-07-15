@@ -12,8 +12,9 @@ WorkSpace.Camera.Yaw = 0
 
 --initialize cameraControl function table
 local cameraControl = {}
---initialize ship object variable 
+--initialize variables
 local ship = WorkSpace.Ship
+local camera = WorkSpace.Camera
 
 --initialization function
 function cameraControl.Init()
@@ -22,7 +23,9 @@ end
 
 --update camera yaw to match ship object rotation
 function cameraControl.Run(delta)
-	WorkSpace.Camera.Yaw = ship.Rotation.y
+	camera.Yaw = ship.Rotation.y
+	if math.abs(ship.Velocity.x)+math.abs(ship.Velocity.z)>15 and camera.FieldOfView<75 then camera.FieldOfView=camera.FieldOfView+2 end
+	if math.abs(ship.Velocity.x)+math.abs(ship.Velocity.z)<15 and camera.FieldOfView>55 then camera.FieldOfView=camera.FieldOfView-2 end
 end
 
 cameraControl.Init()
