@@ -54,6 +54,8 @@ function inputEnd(inputobject)
 	if tostring(inputobject.InputKeyCode) == "D" and tostring(inputobject.InputState) == "End" then d = false end
 end
 
+--optional firing function
+--clones a beam object from ServerStorage, places it in from of the ship object and shoots it out
 function fire()
 	local x = math.cos(math.rad(ship.Rotation.y))
 	local y = math.sin(math.rad(ship.Rotation.y))
@@ -64,9 +66,11 @@ function fire()
 	beam.Parent = WorkSpace
 end
 
+--key bind and input detection service functions
 ContextActionService.BindInput("fire", fire, false, Enum.KeyCode.Space)
 UserInputService.InputBegan:Connect(inputBegin)
 UserInputService.InputEnded:Connect(inputEnd)
 
+--initialize functions
 shipControl.Init()
 

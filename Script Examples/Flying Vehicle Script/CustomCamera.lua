@@ -28,4 +28,5 @@ function cameraControl.Run(delta)
 	if math.abs(ship.Velocity.x)+math.abs(ship.Velocity.z)<15 and camera.FieldOfView>55 then camera.FieldOfView=camera.FieldOfView-2 end
 end
 
+--initialize functions
 cameraControl.Init()
