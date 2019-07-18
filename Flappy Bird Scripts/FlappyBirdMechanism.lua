@@ -2,7 +2,6 @@
 --location: ServerLogic
 
 local flappy = WorkSpace.Flappy
-local walls = WorkSpace.Walls:GetAllChild()
 local velY = 7
 local startPos = flappy.Position
 
