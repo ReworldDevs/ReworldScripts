@@ -5,7 +5,7 @@ local score = 0
 local go = false
 local walls = WorkSpace.Walls:GetAllChild()
 local scoreList = {} --keeps track of scores, used to display high score
-local c = 1 --counter var for walls table
+local wallCounter = 1 --counter var for walls table
 
 --response function for "start" server event
 --displays Counter UiPanel
@@ -15,7 +15,7 @@ function start(Uid)
 	local n = player:GetChildByName("Counter",true)
 	n.IsVisable = true
 	score = 0 --resets score for each round
-	c = 1 --resets counter for each round
+	wallCounter = 1 --resets counter for each round
 end
 
 --response function for "end" server event
@@ -28,7 +28,6 @@ function endFunct(Uid)
 	local ui = player:GetChildByName("Endgame",true)
 	local n = player:GetChildByName("Counter",true)
 	n.IsVisable = false
-	--scoreList[#scoreList+1] = score
 	table.insert(scoreList, score)
 	table.sort(scoreList)
 	ui.ScoreUI.Text = "Score: "..score
@@ -51,14 +50,12 @@ MessageEvent.ServerEventCallBack("addOne"):Connect(updateScore)
 
 --fires "addOne" server event for each wall passed
 function scoreRun()
-	if go then
-		if walls[c].Position.x <-1.5 then
-			score=score+1
-			MessageEvent.FireServer("addOne",score)
-			c=c+1
-		end
-		if c>#walls then c=1 end
+	if walls[wallCounter].Position.x <-1.5 then
+		score=score+1
+		MessageEvent.FireServer("addOne",score)
+		wallCounter=wallCounter+1
 	end
+	if wallCounter>#walls then wallCounter=1 end
 end
 
 GameRun.Update:Connect(scoreRun)
