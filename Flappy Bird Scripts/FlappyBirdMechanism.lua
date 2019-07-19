@@ -4,6 +4,7 @@
 local flappy = WorkSpace.Flappy
 local velY = 7
 local startPos = flappy.Position
+local startRot = flappy.Rotation
 
 --response function to "start" server event
 --unanchors flappy bird object
@@ -27,5 +28,6 @@ flappy.CollisionEnter:Connect(function(hit)
 	MessageEvent.FireServer("end")
 	flappy.Position = startPos
 	flappy.Velocity = Vector3.New(0,0,0)
+	flappy.Rotation = startRot
 	flappy.Anchored = true
 end)

@@ -12,8 +12,8 @@ local wallCounter = 1 --counter var for walls table
 function start(Uid)
 	go = true
 	local player = Players:GetPlayerByUserId(Uid)
-	local n = player:GetChildByName("Counter",true)
-	n.IsVisable = true
+	local counter = player:GetChildByName("Counter",true)
+	counter.IsVisable = true
 	score = 0 --resets score for each round
 	wallCounter = 1 --resets counter for each round
 end
@@ -25,23 +25,23 @@ end
 --displays Endgame UiPanel
 function endFunct(Uid)
 	local player = Players:GetPlayerByUserId(Uid)
-	local ui = player:GetChildByName("Endgame",true)
-	local n = player:GetChildByName("Counter",true)
-	n.IsVisable = false
+	local endgame = player:GetChildByName("Endgame",true)
+	local counter = player:GetChildByName("Counter",true)
+	counter.IsVisable = false
 	table.insert(scoreList, score)
 	table.sort(scoreList)
-	ui.ScoreUI.Text = "Score: "..score
-	ui.HighScore.Text = "High Score: "..scoreList[#scoreList]
+	endgame.ScoreUI.Text = "Score: "..score
+	endgame.HighScore.Text = "High Score: "..scoreList[#scoreList]
 	--wait(1)
-	ui.IsVisable = true
+	endgame.IsVisable = true
 end
 
 --response function for "addOne" server event
 --updates Counter UiPanel for new score
 function updateScore(Uid,localscore)
 	local player = Players:GetPlayerByUserId(Uid)
-	local count = player:GetChildByName("Counter",true)
-	count.Score.Text = tostring(localscore)
+	local counter = player:GetChildByName("Counter",true)
+	counter.Score.Text = tostring(localscore)
 end
 
 MessageEvent.ServerEventCallBack("start"):Connect(start)
