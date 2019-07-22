@@ -25,7 +25,7 @@ function shipControl.Run(delta)
 	if not w and not s and not e and not q then ship.Velocity = Vector3.New(0,0,0) end
 	if not a and not d then ship.RotVelocity = Vector3.New(0,0,0) end
 	if w and not c then ship.Velocity = Vector3.New(10*y,0,10*x) end
-	if w and c then ship.Velocity = Vector3.New(35*y,0,35*x) end
+	if w and c then ship.Velocity = Vector3.New(30*y,0,30*x) end
 	if s then ship.Velocity = Vector3.New(-10*y,0,-10*x) end
 	if e then ship.Velocity = Vector3.New(0,10,0) end
 	if q and ship.Position.y>1 then ship.Velocity = Vector3.New(0,-10,0) end
@@ -63,12 +63,14 @@ function shipControl.fire()
 	local beam = ServerStorage.Beam:Clone()
 	beam.Position = ship.Position+Vector3.New(2*y,0,2*x)
 	beam.Rotation = ship.Rotation
-	beam.Velocity = Vector3.New(60*y,0,60*x)
+	beam.Velocity = Vector3.New(50*y,0,50*x)
 	beam.Parent = WorkSpace
 end
 
 --turns on particle effects and gravity
 function shipControl.crash()
+	ship.Particle1.Position = ship.Position
+	ship.Particle2.Position = ship.Position
 	ship.Particle1.Enable = true
 	ship.Particle2.Enable = true
 	ship.UseGravity = true
