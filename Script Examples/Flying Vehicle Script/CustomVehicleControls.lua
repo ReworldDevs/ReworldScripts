@@ -27,8 +27,8 @@ function shipControl.Run(delta)
 	if w and not c then ship.Velocity = Vector3.New(10*y,0,10*x) end
 	if w and c then ship.Velocity = Vector3.New(30*y,0,30*x) end
 	if s then ship.Velocity = Vector3.New(-10*y,0,-10*x) end
-	if e then ship.Velocity = Vector3.New(0,10,0) end
-	if q and ship.Position.y>1 then ship.Velocity = Vector3.New(0,-10,0) end
+	if e then ship.Velocity = Vector3.New(ship.Velocity.x,10,ship.Velocity.z) end
+	if q then ship.Velocity = Vector3.New(ship.Velocity.x,-10,ship.Velocity.z) end
 	if a then ship.RotVelocity = Vector3.New(0,-1.5,0) end
 	if d then ship.RotVelocity = Vector3.New(0,1.5,0) end
 end
