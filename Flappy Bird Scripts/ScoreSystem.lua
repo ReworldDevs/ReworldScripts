@@ -1,6 +1,7 @@
 --Score track and display system script
 --location: ServerLogic
 
+local hoppy = WorkSpace.Hoppy
 local score = 0
 local go = false
 local walls = WorkSpace.Walls:GetAllChild()
@@ -50,7 +51,7 @@ MessageEvent.ServerEventCallBack("addOne"):Connect(updateScore)
 
 --fires "addOne" server event for each wall passed
 function scoreRun()
-	if walls[wallCounter].Position.x <-1.5 then
+	if walls[wallCounter].Position.x < hoppy.Position.x-0.5 then
 		score=score+1
 		MessageEvent.FireServer("addOne",score)
 		wallCounter=wallCounter+1
